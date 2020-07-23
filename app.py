@@ -17,7 +17,7 @@ def agave_functions():
 		data = request.get_data(as_text = True)
 		print("Body=" + data)
 		requestPayloadObj = request.get_json(force=True)
-		print("Invoke function")
+		print("FunctionId=" + requestPayloadObj.get("id"))
 		responseText = json.dumps({
 			"post-result": 5
 		})
