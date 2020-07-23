@@ -1,0 +1,57 @@
+<html>
+    <head>
+        <title>Test</title>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fetch/3.1.0/fetch.js" ></script>
+        <script type="text/javascript">
+            function log(message) {
+                var text = document.createTextNode(message);
+                var div = document.createElement("div");
+                div.appendChild(text);
+                document.getElementById("DivLog").appendChild(div);
+            }
+
+            function testGet() {
+                fetch("/functions")
+                    .then(function(response){
+                        return response.text();
+                    })
+                    .then(function(text){
+                        log(text);
+                    })
+                    .catch(function(ex){
+                        log(JSON.stringify(ex));
+                    });
+            }
+
+            function testPost() {
+                var payload = {
+                    id: "myadd",
+                    parameters: [1, 2]
+                };
+                fetch("/functions", {
+                        method: "POST",
+                        body: JSON.stringify(payload),
+                        headers: {
+                            "Content-Type": "application/json"
+                        }
+                    })
+                    .then(function(response){
+                        return response.text();
+                    })
+                    .then(function(text){
+                        log(text);
+                    })
+                    .catch(function(ex){
+                        log(JSON.stringify(ex));
+                    });
+            }
+        </script>
+    </head>
+    <body>
+        <button onclick="testGet()">Test Get</button>
+        <button onclick="testPost()">Test Post</button>
+        <div id="DivLog">
+
+        </div>
+    </body>
+</html>
